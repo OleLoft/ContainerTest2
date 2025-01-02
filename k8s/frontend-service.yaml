@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: poc-division-service
+spec:
+  selector:
+    app: poc-division
+  ports:
+    - port: 8090 # Port the service should export
+      targetPort: 8090 # Application port in deployment
+  type: NodePort

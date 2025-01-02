@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: poc-division-deployment
+  labels:
+    app: poc-division
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: poc-division
+  template:
+    metadata:
+      labels:
+        app: poc-division
+    spec:
+      containers:
+      - name: poc-division
+        image: poc/division
+        imagePullPolicy: Never
+        ports:
+          - containerPort: 8090 # Port to expose in the container (must match below port)
+        env:
+          - name: SERVER_PORT
+            value: "8090" # Default for Spring Boot is 8080, but you can change this if you want another
+          - name: SERVICE_ENDPOINT
+            value: "http://poc-bff-service:8090" # Must match BFF service name and port
